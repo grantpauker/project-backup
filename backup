@@ -1,10 +1,10 @@
 #/bin/bash
+folder="/home/god/projects" #Add your own folder to backup here
 if [ ! -d ~/.backups ]
 then
   mkdir ~/.backups
   echo "Created ~/.backups"
 fi
-folder="/home/god/projects"
 if [ "$folder" = "" ]
 then
   echo "Plesae specify project folder"
