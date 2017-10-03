@@ -6,6 +6,7 @@ if [[ $(command -v gdrive) = "" ]]
 then
   echo "Please install gdrive from https://github.com/prasmussen/gdrive"
   echo "Then run the commmand: sudo mv gdrive* /usr/local/bin/gdrive"
+  echo "To setup, run the command: gdrive about"
   exit
 fi
 echo "Compressing..."
