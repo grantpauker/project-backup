@@ -1,5 +1,10 @@
 #/bin/bash
-folder="/home/god/projects" #Specify project folder here
+folder=""
+if [ "$folder" = "" ]
+then
+  echo "Plesae specify project folder"
+  exit
+fi
 base_folder=$(basename $folder)
 cd $folder
 if [[ $(command -v gdrive) = "" ]]
