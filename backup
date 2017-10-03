@@ -2,6 +2,7 @@
 if [ ! -d ~/.backups ]
 then
   mkdir ~/.backups
+  echo "Created ~/.backups"
 fi
 folder="/home/god/projects"
 if [ "$folder" = "" ]
