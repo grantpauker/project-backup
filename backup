@@ -1,0 +1,21 @@
+#/bin/bash
+folder="/home/god/projects"
+base_folder=$(basename $folder)
+cd $folder
+if [[ $(command -v gdrive) = "" ]]
+then
+  echo "Please install gdrive from https://github.com/prasmussen/gdrive"
+  echo "Then run the commmand: sudo mv gdrive* /usr/local/bin/gdrive"
+  exit
+fi
+echo "Compressing..."
+tar -cf /home/god/.backups/$base_folder.tar.gz *
+id=`gdrive list -m 1000| grep $base_folder.tar.gz`
+id=${id% $base_folder*}
+echo "Done"
+if [ "$id" = "" ]
+then
+  gdrive upload ~/.backups/$base_folder.tar.gz
+else
+  gdrive update $id ~/.backups/$base_folder.tar.gz
+fi
