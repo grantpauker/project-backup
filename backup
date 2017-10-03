@@ -9,7 +9,7 @@ then
   echo "To setup, run the command: gdrive about"
   exit
 fi
-echo "Compressing..."
+echo "Compressing and finding id..."
 tar -cf /home/god/.backups/$base_folder.tar.gz *
 id=`gdrive list -m 1000| grep $base_folder.tar.gz`
 id=${id% $base_folder*}
