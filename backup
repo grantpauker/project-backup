@@ -1,5 +1,5 @@
 #/bin/bash
-folder=""
+folder="/home/god/projects"
 if [ "$folder" = "" ]
 then
   echo "Plesae specify project folder"
@@ -17,7 +17,7 @@ fi
 echo "Compressing and finding id..."
 tar -cf /home/god/.backups/$base_folder.tar.gz *
 id=`gdrive list -m 1000| grep $base_folder.tar.gz`
-id=${id% $base_folder*}
+id=${id% $base_folder.tar.gz*}
 echo "Done"
 if [ "$id" = "" ]
 then
