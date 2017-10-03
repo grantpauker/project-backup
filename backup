@@ -1,5 +1,5 @@
 #/bin/bash
-folder="/home/god/projects"
+folder="/home/god/projects" #Specify project folder here
 base_folder=$(basename $folder)
 cd $folder
 if [[ $(command -v gdrive) = "" ]]
