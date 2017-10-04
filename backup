@@ -1,5 +1,6 @@
 #/bin/bash
-folder="/home/god/projects" #Add your own folder to backup here
+sudo true
+folder="" #Add your own folder to backup here
 if [ ! -d ~/.backups ]
 then
   mkdir ~/.backups
@@ -12,7 +13,7 @@ then
 fi
 base_folder=$(basename $folder)
 cd $folder
-if [[ $(command -v gdrive) = "" ]]
+if [ $(command -v gdrive) = "" ]
 then
   echo "Please install gdrive from https://github.com/prasmussen/gdrive"
   echo "Then run the commmand: sudo mv gdrive* /usr/local/bin/gdrive"
@@ -20,13 +21,13 @@ then
   exit
 fi
 echo "Compressing and finding id..."
-tar -cf /home/god/.backups/$base_folder.tar.gz *
-id=`gdrive list -m 1000| grep $base_folder.tar.gz`
-id=${id% $base_folder.tar.gz*}
+sudo zip -q -r ~/.backups/$base_folder.zip *
+id=`sudo gdrive list -m 1000| grep $base_folder.zip`
+id=${id% $base_folder.zip*}
 echo "Done"
 if [ "$id" = "" ]
 then
-  gdrive upload ~/.backups/$base_folder.tar.gz
+  sudo gdrive upload ~/.backups/$base_folder.zip
 else
-  gdrive update $id ~/.backups/$base_folder.tar.gz
+  sudo gdrive update $id ~/.backups/$base_folder.zip
 fi
