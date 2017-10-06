@@ -1,18 +1,27 @@
 #/bin/bash
-sudo true
-folder="" #Add your own folder to backup here
+folder="/home/god/projects" #Add your own folder to backup here
+
+#Checks if .backups folder exists
 if [ ! -d ~/.backups ]
 then
   mkdir ~/.backups
   echo "Created ~/.backups"
 fi
+
+#Checks if a folder was specified
 if [ "$folder" = "" ]
 then
   echo "Plesae specify project folder"
   exit
 fi
+
+#Gets basename of folder
 base_folder=$(basename $folder)
+
+#cds into the folder to backup
 cd $folder
+
+#Checks if gdrive command exists
 if [ $(command -v gdrive) = "" ]
 then
   echo "Please install gdrive from https://github.com/prasmussen/gdrive"
@@ -20,14 +29,18 @@ then
   echo "To setup, run the command: gdrive about"
   exit
 fi
+
+#Compresses folder and gets id
 echo "Compressing and finding id..."
-sudo zip -q -r ~/.backups/$base_folder.zip *
-id=`sudo gdrive list -m 1000| grep $base_folder.zip`
+zip -q -r ~/.backups/$base_folder.zip *
+id=`gdrive list -m 1000| grep $base_folder.zip`
 id=${id% $base_folder.zip*}
-echo "Done"
+echo "Compression finished"
+
+#Uploads the folder to google drive
 if [ "$id" = "" ]
 then
-  sudo gdrive upload ~/.backups/$base_folder.zip
+  gdrive upload ~/.backups/$base_folder.zip
 else
-  sudo gdrive update $id ~/.backups/$base_folder.zip
+  gdrive update $id ~/.backups/$base_folder.zip
 fi
